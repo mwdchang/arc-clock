@@ -1,0 +1,28 @@
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: Tahoma, Verdana;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  background: #DDD;
+}
+
+section {
+  background: #FDFDFD;
+  margin: 0 4rem;
+  padding: 0 2rem;
+  flex-grow: 0;
+}
+
+.tile {
+  display: inline-block;
+  width: 220px;
+  height: 220px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 2px 2px;
+}
+

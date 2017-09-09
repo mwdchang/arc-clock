@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta name="author" content="Daniel Chang"/>
+<meta name="keywords" content="visualization, graphics, javascript, clock, daniel chang, meng-wei chang, technology"/>
+<meta name="description" content="Slick looking arc-based clocks."/>
+<title>Arc Clocks </title>
+<link href="styles.css" rel="stylesheet">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="aclock.js"></script>
+<style>
+</style>
+</head>
+<body>
+  <section id="container">
+    <p>Arc clocks</p>
+  </section>
+  <a href="https://github.com/mwdchang/arc-clock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+</body>
+<script>
+
+const styles = ['ARC', 'TICK', 'ENCLOSURE'];
+const tf = [true, false];
+const colours = d3.schemeCategory20;
+
+const randomize = (list) => {
+  const len = list.length;
+  const index = Math.floor(Math.random()*len);
+  return list[index];
+};
+
+
+// Generate randomized clock
+let prefix = 'clock';
+let container = d3.select('#container');
+let numClocks = 12;
+for (let i=0; i < numClocks; i++) {
+  container.append('div').classed('tile', true).attr('id', prefix+i);
+}
+
+for (let i=0; i < numClocks; i++) {
+
+  let config = {
+    hourStyle: randomize(styles),
+    minuteStyle: randomize(styles),
+    secondStyle: randomize(styles),
+    showHour: randomize(tf),
+    showMinute: randomize(tf),
+    showSecond: randomize(tf),
+    showCenter: randomize(tf),
+    hourColour: randomize(colours),
+    minuteColour: randomize(colours),
+    secondColour: randomize(colours),
+  };
+
+  // Is there a wave?
+  if (randomize(tf) === true) {
+    config.showWave = true;
+    config.waveColour = randomize(colours);
+    config.waves = Math.floor(Math.random()*10);
+    config.waveInner = 200 + Math.floor(Math.random()*20);
+    config.waveOunter = 220 + Math.floor(Math.random()*20);
+    config.waveHeight = 10 + Math.random()*35;
+  } else {
+    config.showWave = false;
+  }
+    
+
+  let clock = new ArcClock(config);
+  clock.render('#'+prefix+i);
+}
+
+
+
+
+
+</script>
+</html>
