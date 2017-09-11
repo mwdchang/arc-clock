@@ -67,7 +67,10 @@ class ArcClock {
       waveColour: '#9CF',
 
       // Number of waves
-      waves: 3
+      waves: 3,
+
+      // Opacity of hour, minute, second
+      opacity: 1.0
     }
   }
 
@@ -105,15 +108,15 @@ class ArcClock {
 
     let hours = svg.append('path')
       .datum({ startAngle: 0, endAngle: 0.0001 })
-      .attr('d', arcHour).style('fill', config.hourColour);
+      .attr('d', arcHour).style('fill', config.hourColour).style('opacity', config.opacity);
 
     let minutes = svg.append('path')
       .datum({ startAngle: 0, endAngle: 0.0001 })
-      .attr('d', arcMinute).style('fill', config.minuteColour);
+      .attr('d', arcMinute).style('fill', config.minuteColour).style('opacity', config.opacity);
 
     let seconds = svg.append('path')
       .datum({ startAngle: 0, endAngle: 0.0001 })
-      .attr('d', arcSecond).style('fill', config.secondColour);
+      .attr('d', arcSecond).style('fill', config.secondColour).style('opacity', config.opacity);
 
 
 
@@ -197,7 +200,7 @@ class ArcClock {
         (now.getMinutes() < 10? '0' + now.getMinutes() : now.getMinutes()) + ':' +
         (now.getSeconds() < 10? '0' + now.getSeconds() : now.getSeconds());
 
-      if (_seconds === 0) {
+      if (now.getSeconds() === 0) {
         svg.selectAll('.sec').style('opacity', 0.05);
       }
       svg.selectAll('.sec').filter(function(d) {

@@ -15,7 +15,10 @@
 </head>
 <body>
   <section id="container">
-    <p>Arc clocks</p>
+    <h3>Arc clocks</h3>
+    <p>
+      The hour, minute and second are mapped to polar coordinates. Shown as arcs or positive/negative spaces of their indivdual orbit.
+    </p>
   </section>
   <a href="https://github.com/mwdchang/arc-clock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 </body>
@@ -23,7 +26,7 @@
 
 const styles = ['ARC', 'TICK', 'ENCLOSURE'];
 const tf = [true, false];
-const colours = d3.schemeCategory20;
+const colours = d3.schemeCategory20b;
 
 const randomize = (list) => {
   const len = list.length;
@@ -36,6 +39,8 @@ const randomize = (list) => {
 let prefix = 'clock';
 let container = d3.select('#container');
 let numClocks = 12;
+let randomInt = (d) => { return Math.floor(Math.random()*d); };
+
 for (let i=0; i < numClocks; i++) {
   container.append('div').classed('tile', true).attr('id', prefix+i);
 }
@@ -53,15 +58,28 @@ for (let i=0; i < numClocks; i++) {
     hourColour: randomize(colours),
     minuteColour: randomize(colours),
     secondColour: randomize(colours),
+    centerColour: randomize(colours)
   };
+
+
+  if (config.showCenter === false) {
+    config.hourInner = 10;
+    config.hourOuter = 30 + randomInt(40);
+    config.minuteInner = 10;
+    config.minuteOuter = 100 + randomInt(100);
+    config.secondInner = 10;
+    config.secondOuter = 100 + randomInt(100);
+    config.opacity = 0.6;
+  }
+
 
   // Is there a wave?
   if (randomize(tf) === true) {
     config.showWave = true;
     config.waveColour = randomize(colours);
     config.waves = Math.floor(Math.random()*10);
-    config.waveInner = 200 + Math.floor(Math.random()*20);
-    config.waveOunter = 220 + Math.floor(Math.random()*20);
+    config.waveInner = 200 + randomInt(20);
+    config.waveOunter = 220 + randomInt(20);
     config.waveHeight = 10 + Math.random()*35;
   } else {
     config.showWave = false;
