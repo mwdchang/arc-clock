@@ -8,7 +8,7 @@
 <meta name="description" content="Slick looking arc-based clocks."/>
 <title>Arc Clocks </title>
 <link href="styles.css" rel="stylesheet">
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="aclock.js"></script>
 <style>
 </style>
@@ -26,7 +26,7 @@
 
 const styles = ['ARC', 'TICK', 'ENCLOSURE'];
 const tf = [true, false];
-const colours = d3.schemeCategory20b;
+const colours = d3.schemePaired;
 
 const randomize = (list) => {
   const len = list.length;
@@ -58,7 +58,8 @@ for (let i=0; i < numClocks; i++) {
     hourColour: randomize(colours),
     minuteColour: randomize(colours),
     secondColour: randomize(colours),
-    centerColour: randomize(colours)
+    centerColour: randomize(colours),
+    centerTextColour: '#123'
   };
 
 
